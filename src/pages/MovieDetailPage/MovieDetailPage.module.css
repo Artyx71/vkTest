@@ -1,0 +1,130 @@
+.page {
+    display: flex;
+    flex-direction: column;
+}
+
+.backBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: #888;
+    border: none;
+    font-size: 0.9rem;
+    cursor: pointer;
+    padding: 0 0 20px;
+    transition: color 0.2s;
+    text-decoration: none;
+    width: fit-content;
+}
+
+.backBtn:hover {
+    color: #fff;
+}
+
+.content {
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+}
+
+.posterWrap {
+    flex: 0 0 300px;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.poster {
+    width: 100%;
+    display: block;
+}
+
+.info {
+    flex: 1;
+}
+
+.title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin: 0 0 8px;
+    color: #fff;
+}
+
+.originalTitle {
+    font-size: 1.1rem;
+    color: #888;
+    margin: 0 0 24px;
+}
+
+.description {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #ccc;
+    margin-bottom: 32px;
+}
+
+.factList {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 32px;
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 12px;
+    font-size: 0.95rem;
+}
+
+.label {
+    color: #888;
+}
+
+.value {
+    color: #e0e0e0;
+    font-weight: 500;
+}
+
+.ratingKinopoisk {
+    color: #4caf50;
+    font-weight: 700;
+}
+
+.actionBtn {
+    background: #6366f1;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.actionBtn:hover {
+    background: #4f46e5;
+}
+
+.actionBtnActive {
+    background: #2a2a4a;
+    color: #e0e0e0;
+}
+
+.actionBtnActive:hover {
+    background: #3f3f5a;
+}
+
+@media (max-width: 768px) {
+    .content {
+        flex-direction: column;
+    }
+
+    .posterWrap {
+        width: 200px;
+        flex: 0 0 auto;
+        margin: 0 auto;
+    }
+}

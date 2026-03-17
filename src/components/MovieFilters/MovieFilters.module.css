@@ -1,0 +1,88 @@
+.filters {
+    background: #16162a;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: flex-end;
+}
+
+.filterGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 140px;
+}
+
+.filterGroup label {
+    font-size: 0.75rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.filterGroup select,
+.filterGroup input {
+    background: #0f0f23;
+    border: 1px solid #2a2a4a;
+    color: #e0e0e0;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.filterGroup select:focus,
+.filterGroup input:focus {
+    border-color: #6366f1;
+}
+
+.rangeGroup {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.rangeGroup input {
+    width: 70px;
+}
+
+.resetBtn {
+    background: #6366f1;
+    color: #fff;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    align-self: flex-end;
+}
+
+.resetBtn:hover {
+    background: #4f46e5;
+}
+
+@media (max-width: 480px) {
+    .filters {
+        padding: 12px;
+        gap: 12px;
+    }
+
+    .filterGroup {
+        flex: 1 1 calc(50% - 12px);
+        min-width: 120px;
+    }
+
+    .filterGroup:nth-last-child(2) {
+        flex: 1 1 100%;
+    }
+
+    .resetBtn {
+        flex: 1 1 100%;
+        padding: 12px;
+    }
+}
