@@ -18,7 +18,6 @@ export function CompareBar() {
         let cancelled = false;
         setLoading(true);
 
-        // Fetch movies one by one to avoid total failure if one ID is missing
         Promise.all(
             selectedIds.map((id) =>
                 getMovieById(id).catch((err) => {

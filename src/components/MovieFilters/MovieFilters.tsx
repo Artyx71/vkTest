@@ -12,13 +12,11 @@ export function MovieFilters() {
 
     const { genres } = useFilterOptions();
 
-    // Local state for debouncing
     const [localYearFrom, setLocalYearFrom] = useState<number | undefined>(yearFrom);
     const [localYearTo, setLocalYearTo] = useState<number | undefined>(yearTo);
     const [localRatingFrom, setLocalRatingFrom] = useState<number>(ratingFrom);
     const [localRatingTo, setLocalRatingTo] = useState<number>(ratingTo);
 
-    // Update local state when store state changes (e.g. on reset)
     useEffect(() => {
         setLocalYearFrom(yearFrom);
         setLocalYearTo(yearTo);
@@ -26,7 +24,6 @@ export function MovieFilters() {
         setLocalRatingTo(ratingTo);
     }, [yearFrom, yearTo, ratingFrom, ratingTo]);
 
-    // Debounced effect for yearFrom
     useEffect(() => {
         const timer = setTimeout(() => {
             if (localYearFrom === undefined || (localYearFrom >= 1860 && localYearFrom <= 2100)) {
@@ -36,7 +33,6 @@ export function MovieFilters() {
         return () => clearTimeout(timer);
     }, [localYearFrom, setYearFrom]);
 
-    // Debounced effect for yearTo
     useEffect(() => {
         const timer = setTimeout(() => {
             if (localYearTo === undefined || (localYearTo >= 1860 && localYearTo <= 2100)) {
@@ -46,7 +42,6 @@ export function MovieFilters() {
         return () => clearTimeout(timer);
     }, [localYearTo, setYearTo]);
 
-    // Debounced effect for ratingFrom
     useEffect(() => {
         const timer = setTimeout(() => {
             setRatingFrom(localRatingFrom);
@@ -54,7 +49,6 @@ export function MovieFilters() {
         return () => clearTimeout(timer);
     }, [localRatingFrom, setRatingFrom]);
 
-    // Debounced effect for ratingTo
     useEffect(() => {
         const timer = setTimeout(() => {
             setRatingTo(localRatingTo);

@@ -5,9 +5,8 @@ import { MovieDetailPage } from './pages/MovieDetailPage/MovieDetailPage';
 import { FavoritesPage } from './pages/FavoritesPage/FavoritesPage';
 import { NotFoundPage } from './pages/NotFoundPage/NotFoundPage';
 import { Link } from 'react-router-dom';
-import styles from './components/Layout/Layout.module.css'; // Reuse nav class
+import styles from './components/Layout/Layout.module.css';
 
-// Patch Layout to include Favorites link
 function AppLayout() {
   return (
     <div className={styles.layout}>
