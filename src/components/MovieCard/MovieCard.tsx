@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom';
-import { useFavoritesStore } from '../../store/useFavoritesStore';
-import { useCompareStore } from '../../store/useCompareStore';
 import type { Movie } from '../../api/types';
 import styles from './MovieCard.module.css';
 
 interface MovieCardProps {
     movie: Movie;
+    isFavorite: boolean;
+    isCompared: boolean;
+    onToggleFavorite: (id: number) => void;
+    onToggleCompare: (id: number) => void;
 }
 
 function getRatingClass(rating: number | null): string {
@@ -15,12 +17,13 @@ function getRatingClass(rating: number | null): string {
     return styles.ratingLow;
 }
 
-export function MovieCard({ movie }: MovieCardProps) {
-    const toggleFavorite = useFavoritesStore((s) => s.toggleFavorite);
-    const isFavorite = useFavoritesStore((s) => s.favorites.includes(movie.id));
-    const toggleCompare = useCompareStore((s) => s.toggleCompare);
-    const isCompareSelected = useCompareStore((s) => s.selectedIds.includes(movie.id));
-
+export function MovieCard({
+    movie,
+    isFavorite,
+    isCompared,
+    onToggleFavorite,
+    onToggleCompare,
+}: MovieCardProps) {
     const title = movie.name || movie.alternativeName || movie.enName || 'Без названия';
     const genresText = movie.genres.map((g) => g.name).join(', ');
 
@@ -32,7 +35,7 @@ export function MovieCard({ movie }: MovieCardProps) {
                     onClick={(e) => {
                         e.preventDefault();
                         e.stopPropagation();
-                        toggleFavorite(movie.id);
+                        onToggleFavorite(movie.id);
                     }}
                     title={isFavorite ? 'Убрать из избранного' : 'В избранное'}
                     aria-label={isFavorite ? 'Убрать из избранного' : 'Добавить в избранное'}
@@ -46,12 +49,12 @@ export function MovieCard({ movie }: MovieCardProps) {
                     onClick={(e) => {
                         e.preventDefault();
                         e.stopPropagation();
-                        toggleCompare(movie.id);
+                        onToggleCompare(movie.id);
                     }}
-                    title={isCompareSelected ? 'Убрать из сравнения' : 'Сравнить'}
-                    aria-label={isCompareSelected ? 'Убрать из сравнения' : 'Добавить к сравнению'}
+                    title={isCompared ? 'Убрать из сравнения' : 'Сравнить'}
+                    aria-label={isCompared ? 'Убрать из сравнения' : 'Добавить к сравнению'}
                 >
-                    <span className={isCompareSelected ? styles.compareActive : styles.compareInactive}>
+                    <span className={isCompared ? styles.compareActive : styles.compareInactive}>
                         ⚖
                     </span>
                 </button>

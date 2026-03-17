@@ -1,15 +1,25 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 import { useMovies } from '../../hooks/useMovies';
 import { MovieCard } from '../../components/MovieCard/MovieCard';
 import { MovieFilters } from '../../components/MovieFilters/MovieFilters';
 import { Loader } from '../../components/Loader/Loader';
 import { ErrorBoundary } from '../../components/ErrorBoundary/ErrorBoundary';
 import { CompareBar } from '../../components/CompareBar/CompareBar';
+import { useFavoritesStore } from '../../store/useFavoritesStore';
+import { useCompareStore } from '../../store/useCompareStore';
 import styles from './MovieListPage.module.css';
 
 function MovieListContent() {
     const { movies, loading, error, loadMore, hasMore } = useMovies();
     const observerTarget = useRef<HTMLDivElement>(null);
+
+    const toggleFavorite = useFavoritesStore((s) => s.toggleFavorite);
+    const favorites = useFavoritesStore((s) => s.favorites);
+    const toggleCompare = useCompareStore((s) => s.toggleCompare);
+    const selectedCompareIds = useCompareStore((s) => s.selectedIds);
+
+    const isFavorite = useCallback((id: number) => favorites.includes(id), [favorites]);
+    const isCompared = useCallback((id: number) => selectedCompareIds.includes(id), [selectedCompareIds]);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -43,7 +53,14 @@ function MovieListContent() {
 
             <div className={styles.grid}>
                 {movies.map((movie, index) => (
-                    <MovieCard key={`${movie.id}-${index}`} movie={movie} />
+                    <MovieCard
+                        key={`${movie.id}-${index}`}
+                        movie={movie}
+                        isFavorite={isFavorite(movie.id)}
+                        isCompared={isCompared(movie.id)}
+                        onToggleFavorite={toggleFavorite}
+                        onToggleCompare={toggleCompare}
+                    />
                 ))}
             </div>
 
