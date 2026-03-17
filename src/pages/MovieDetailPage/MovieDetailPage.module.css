@@ -19,7 +19,7 @@
 }
 
 .backBtn:hover {
-    color: #fff;
+    color: #FFD700;
 }
 
 .content {
@@ -33,7 +33,7 @@
     position: relative;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 215, 0, 0.05);
 }
 
 .poster {
@@ -85,36 +85,37 @@
 }
 
 .ratingKinopoisk {
-    color: #4caf50;
+    color: #FFD700;
     font-weight: 700;
 }
 
 .actionBtn {
-    background: #6366f1;
-    color: #fff;
+    background: linear-gradient(135deg, #FFD700, #E6C200);
+    color: #0a0a1a;
     border: none;
     padding: 12px 24px;
     border-radius: 8px;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background 0.2s, box-shadow 0.2s;
     display: inline-flex;
     align-items: center;
     gap: 8px;
 }
 
 .actionBtn:hover {
-    background: #4f46e5;
+    background: linear-gradient(135deg, #E6C200, #CCA800);
+    box-shadow: 0 0 16px rgba(255, 215, 0, 0.25);
 }
 
 .actionBtnActive {
-    background: #2a2a4a;
+    background: #1a1a3a;
     color: #e0e0e0;
 }
 
 .actionBtnActive:hover {
-    background: #3f3f5a;
+    background: #2a2a4a;
 }
 
 @media (max-width: 768px) {

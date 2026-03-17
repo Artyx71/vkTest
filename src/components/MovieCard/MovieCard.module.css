@@ -1,15 +1,17 @@
 .card {
   position: relative;
-  background: #1a1a2e;
+  background: #0a0a1a;
+  border: 1px solid rgba(255, 215, 0, 0.06);
   border-radius: 12px;
   overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.3s ease;
   cursor: pointer;
 }
 
 .card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 8px 30px rgba(255, 215, 0, 0.1), 0 0 0 1px rgba(255, 215, 0, 0.15);
+  border-color: rgba(255, 215, 0, 0.2);
 }
 
 .posterWrap {
@@ -116,7 +118,7 @@
 }
 
 .compareActive {
-  color: #2196f3;
+  color: #FFD700;
 }
 
 .compareInactive {

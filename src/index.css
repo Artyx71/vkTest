@@ -5,7 +5,11 @@
 
   color-scheme: dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #0f0f23;
+  background-color: #050510;
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(255, 215, 0, 0.03) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(255, 165, 0, 0.02) 0%, transparent 50%),
+    radial-gradient(circle at 50% 80%, rgba(255, 215, 0, 0.015) 0%, transparent 40%);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -29,21 +33,21 @@ body {
   box-sizing: border-box;
 }
 
-/* Custom Scrollbar for modern look */
+/* Custom Scrollbar – cosmic */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0f0f23;
+  background: #050510;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #2a2a4a;
+  background: #1a1a3a;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #6366f1;
+  background: #FFD700;
 }
