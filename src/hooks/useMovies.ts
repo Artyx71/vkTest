@@ -3,6 +3,59 @@ import { getMovies } from '../api/kinopoiskApi';
 import type { Movie, MovieQueryParams } from '../api/types';
 import { useFiltersStore } from '../store/useFiltersStore';
 
+export function buildMovieQueryParams(
+    page: number,
+    filters: {
+        genreId: string | undefined;
+        yearFrom: number | undefined;
+        yearTo: number | undefined;
+        ratingFrom: number;
+        ratingTo: number;
+        order: string;
+        type: string;
+    }
+): MovieQueryParams {
+    const params: MovieQueryParams = {
+        page,
+        limit: 50,
+    };
+
+    if (filters.genreId) params['genres.name'] = String(filters.genreId);
+
+    if (filters.yearFrom && filters.yearTo) {
+        params.year = `${filters.yearFrom}-${filters.yearTo}`;
+    } else if (filters.yearFrom) {
+        params.year = `${filters.yearFrom}-2030`;
+    } else if (filters.yearTo) {
+        params.year = `1860-${filters.yearTo}`;
+    }
+
+    if (filters.ratingFrom !== 0 || filters.ratingTo !== 10) {
+        params['rating.kp'] = `${filters.ratingFrom}-${filters.ratingTo}`;
+    }
+
+    if (filters.order === 'RATING') {
+        params.sortField = 'rating.kp';
+    } else if (filters.order === 'NUM_VOTE') {
+        params.sortField = 'votes.kp';
+    } else if (filters.order === 'YEAR') {
+        params.sortField = 'year';
+    }
+    params.sortType = '-1';
+
+    if (filters.type !== 'ALL') {
+        const typeMap: Record<string, string> = {
+            FILM: 'movie',
+            TV_SERIES: 'tv-series',
+            TV_SHOW: 'tv-show',
+            MINI_SERIES: 'animated-series',
+        };
+        params.type = typeMap[filters.type] || 'movie';
+    }
+
+    return params;
+}
+
 export function useMovies() {
     const [movies, setMovies] = useState<Movie[]>([]);
     const [page, setPage] = useState(1);
@@ -23,47 +76,18 @@ export function useMovies() {
         setError(null);
 
         try {
-            const params: MovieQueryParams = {
-                page: pageNum,
-                limit: 50,
-            };
-
-            if (genreId) params['genres.name'] = String(genreId);
-
-            if (yearFrom && yearTo) {
-                params.year = `${yearFrom}-${yearTo}`;
-            } else if (yearFrom) {
-                params.year = `${yearFrom}-2030`;
-            } else if (yearTo) {
-                params.year = `1860-${yearTo}`;
-            }
-
-            if (ratingFrom !== 0 || ratingTo !== 10) {
-                params['rating.kp'] = `${ratingFrom}-${ratingTo}`;
-            }
-
-            if (order === 'RATING') {
-                params.sortField = 'rating.kp';
-            } else if (order === 'NUM_VOTE') {
-                params.sortField = 'votes.kp';
-            } else if (order === 'YEAR') {
-                params.sortField = 'year';
-            }
-            params.sortType = '-1';
-
-            if (type !== 'ALL') {
-                const typeMap: Record<string, string> = {
-                    FILM: 'movie',
-                    TV_SERIES: 'tv-series',
-                    TV_SHOW: 'tv-show',
-                    MINI_SERIES: 'animated-series',
-                };
-                params.type = typeMap[type] || 'movie';
-            }
+            const params = buildMovieQueryParams(pageNum, {
+                genreId,
+                yearFrom,
+                yearTo,
+                ratingFrom,
+                ratingTo,
+                order,
+                type,
+            });
 
             const data = await getMovies(params);
 
-            // Defensive check for data and docs
             if (!data || !data.docs) {
                 if (reset) setMovies([]);
                 return;

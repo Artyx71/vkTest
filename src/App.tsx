@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { Layout } from './components/Layout/Layout';
+
 import { MovieListPage } from './pages/MovieListPage/MovieListPage';
 import { MovieDetailPage } from './pages/MovieDetailPage/MovieDetailPage';
 import { FavoritesPage } from './pages/FavoritesPage/FavoritesPage';

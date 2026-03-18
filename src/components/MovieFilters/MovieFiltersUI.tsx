@@ -19,7 +19,7 @@ interface MovieFiltersUIProps {
     onRatingFromChange: (val: number) => void;
     onRatingToChange: (val: number) => void;
     onOrderChange: (val: 'RATING' | 'NUM_VOTE' | 'YEAR') => void;
-    onTypeChange: (val: any) => void;
+    onTypeChange: (val: 'ALL' | 'FILM' | 'TV_SERIES' | 'TV_SHOW' | 'MINI_SERIES') => void;
     onReset: () => void;
 }
 
@@ -43,7 +43,6 @@ export function MovieFiltersUI({
 }: MovieFiltersUIProps) {
     return (
         <div className={styles.filters}>
-            {/* Genre */}
             <div className={styles.filterGroup}>
                 <label htmlFor="filter-genre">Жанр</label>
                 <select
@@ -58,7 +57,6 @@ export function MovieFiltersUI({
                 </select>
             </div>
 
-            {/* Year range */}
             <div className={styles.filterGroup}>
                 <label>Год</label>
                 <div className={styles.rangeGroup}>
@@ -82,7 +80,6 @@ export function MovieFiltersUI({
                 </div>
             </div>
 
-            {/* Rating range */}
             <div className={styles.filterGroup}>
                 <label>Рейтинг КП</label>
                 <div className={styles.rangeGroup}>
@@ -108,7 +105,6 @@ export function MovieFiltersUI({
                 </div>
             </div>
 
-            {/* Sort */}
             <div className={styles.filterGroup}>
                 <label htmlFor="filter-order">Сортировка</label>
                 <select
@@ -122,13 +118,12 @@ export function MovieFiltersUI({
                 </select>
             </div>
 
-            {/* Type */}
             <div className={styles.filterGroup}>
                 <label htmlFor="filter-type">Тип</label>
                 <select
                     id="filter-type"
                     value={type}
-                    onChange={(e) => onTypeChange(e.target.value as any)}
+                    onChange={(e) => onTypeChange(e.target.value as 'ALL' | 'FILM' | 'TV_SERIES' | 'TV_SHOW' | 'MINI_SERIES')}
                 >
                     <option value="ALL">Все</option>
                     <option value="FILM">Фильм</option>
@@ -138,7 +133,6 @@ export function MovieFiltersUI({
                 </select>
             </div>
 
-            {/* Reset */}
             <button className={styles.resetBtn} onClick={onReset}>
                 Сбросить
             </button>

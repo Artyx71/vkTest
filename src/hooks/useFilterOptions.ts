@@ -16,7 +16,6 @@ export function useFilterOptions() {
                     setGenres(data);
                 }
             } catch {
-                // silent — filters are optional
             } finally {
                 if (!cancelled) setLoading(false);
             }

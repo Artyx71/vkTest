@@ -39,7 +39,6 @@ async function request<T>(endpoint: string, params?: Record<string, any>): Promi
 }
 
 export async function getMovies(params: MovieQueryParams = {}): Promise<MovieResponse> {
-    // Add some defaults for a better list
     const queryParams: MovieQueryParams = {
         limit: 50,
         sortField: 'rating.kp',

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useFiltersStore } from '../../store/useFiltersStore';
 import { useFilterOptions } from '../../hooks/useFilterOptions';
+import { useDebounce } from '../../hooks/useDebounce';
 import { MovieFiltersUI } from './MovieFiltersUI';
 
 export function MovieFilters() {
@@ -24,37 +25,30 @@ export function MovieFilters() {
         setLocalRatingTo(ratingTo);
     }, [yearFrom, yearTo, ratingFrom, ratingTo]);
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            if (localYearFrom === undefined || (localYearFrom >= 1860 && localYearFrom <= 2100)) {
-                setYearFrom(localYearFrom);
-            }
-        }, 500);
-        return () => clearTimeout(timer);
-    }, [localYearFrom, setYearFrom]);
+    const debouncedYearFrom = useDebounce(localYearFrom, 500);
+    const debouncedYearTo = useDebounce(localYearTo, 500);
+    const debouncedRatingFrom = useDebounce(localRatingFrom, 500);
+    const debouncedRatingTo = useDebounce(localRatingTo, 500);
 
     useEffect(() => {
-        const timer = setTimeout(() => {
-            if (localYearTo === undefined || (localYearTo >= 1860 && localYearTo <= 2100)) {
-                setYearTo(localYearTo);
-            }
-        }, 500);
-        return () => clearTimeout(timer);
-    }, [localYearTo, setYearTo]);
+        if (debouncedYearFrom === undefined || (debouncedYearFrom >= 1860 && debouncedYearFrom <= 2100)) {
+            setYearFrom(debouncedYearFrom);
+        }
+    }, [debouncedYearFrom, setYearFrom]);
 
     useEffect(() => {
-        const timer = setTimeout(() => {
-            setRatingFrom(localRatingFrom);
-        }, 500);
-        return () => clearTimeout(timer);
-    }, [localRatingFrom, setRatingFrom]);
+        if (debouncedYearTo === undefined || (debouncedYearTo >= 1860 && debouncedYearTo <= 2100)) {
+            setYearTo(debouncedYearTo);
+        }
+    }, [debouncedYearTo, setYearTo]);
 
     useEffect(() => {
-        const timer = setTimeout(() => {
-            setRatingTo(localRatingTo);
-        }, 500);
-        return () => clearTimeout(timer);
-    }, [localRatingTo, setRatingTo]);
+        setRatingFrom(debouncedRatingFrom);
+    }, [debouncedRatingFrom, setRatingFrom]);
+
+    useEffect(() => {
+        setRatingTo(debouncedRatingTo);
+    }, [debouncedRatingTo, setRatingTo]);
 
     return (
         <MovieFiltersUI

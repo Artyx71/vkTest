@@ -2,11 +2,9 @@ import { useState, useEffect, useCallback } from 'react';
 import { useFavoritesStore } from '../../store/useFavoritesStore';
 import { useCompareStore } from '../../store/useCompareStore';
 import { getMovieById } from '../../api/kinopoiskApi';
-import { MovieCard } from '../../components/MovieCard/MovieCard';
-import { Loader } from '../../components/Loader/Loader';
 import { ErrorBoundary } from '../../components/ErrorBoundary/ErrorBoundary';
 import type { MovieDetail } from '../../api/types';
-import styles from './FavoritesPage.module.css';
+import { FavoritesPageUI } from './FavoritesPageUI';
 
 function FavoritesContent() {
     const { favorites, toggleFavorite } = useFavoritesStore();
@@ -46,32 +44,14 @@ function FavoritesContent() {
     }, [favorites]);
 
     return (
-        <div className={styles.page}>
-            <h1 className={styles.title}>Избранное</h1>
-
-            {loading && <Loader />}
-
-            {!loading && movies.length === 0 && (
-                <div className={styles.empty}>
-                    В избранном пока нет фильмов. Возвращайтесь на главную страницу, чтобы добавить!
-                </div>
-            )}
-
-            {!loading && movies.length > 0 && (
-                <div className={styles.grid}>
-                    {movies.map((movie) => (
-                        <MovieCard
-                            key={movie.id}
-                            movie={movie}
-                            isFavorite={isFavorite(movie.id)}
-                            isCompared={isCompared(movie.id)}
-                            onToggleFavorite={toggleFavorite}
-                            onToggleCompare={toggleCompare}
-                        />
-                    ))}
-                </div>
-            )}
-        </div>
+        <FavoritesPageUI
+            movies={movies}
+            loading={loading}
+            isFavorite={isFavorite}
+            isCompared={isCompared}
+            onToggleFavorite={toggleFavorite}
+            onToggleCompare={toggleCompare}
+        />
     );
 }
 
