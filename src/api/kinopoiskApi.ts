@@ -10,7 +10,7 @@ function getApiKey(): string {
     return key;
 }
 
-async function request<T>(endpoint: string, params?: Record<string, any>): Promise<T> {
+async function request<T>(endpoint: string, params?: Record<string, string | number | boolean | (string | number)[] | undefined>): Promise<T> {
     const url = new URL(`${BASE_URL}${endpoint}`);
 
     if (params) {

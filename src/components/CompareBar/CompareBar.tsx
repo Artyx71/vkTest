@@ -16,24 +16,27 @@ export function CompareBar() {
         if (!showModal || count === 0) return;
 
         let cancelled = false;
-        setLoading(true);
 
-        Promise.all(
-            selectedIds.map((id) =>
-                getMovieById(id).catch((err) => {
-                    console.error(`Failed to fetch movie ${id}:`, err);
-                    return null;
-                })
-            )
-        )
-            .then((results) => {
+        const fetchData = async () => {
+            setLoading(true);
+            try {
+                const results = await Promise.all(
+                    selectedIds.map((id) =>
+                        getMovieById(id).catch((err) => {
+                            console.error(`Failed to fetch movie ${id}:`, err);
+                            return null;
+                        })
+                    )
+                );
                 if (!cancelled) {
                     setMovies(results.filter((m): m is MovieDetail => m !== null));
                 }
-            })
-            .finally(() => {
+            } finally {
                 if (!cancelled) setLoading(false);
-            });
+            }
+        };
+
+        fetchData();
 
         return () => {
             cancelled = true;

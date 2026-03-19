@@ -15,7 +15,8 @@ export function useFilterOptions() {
                 if (!cancelled) {
                     setGenres(data);
                 }
-            } catch {
+            } catch (err) {
+                console.error('Failed to fetch filter options:', err);
             } finally {
                 if (!cancelled) setLoading(false);
             }

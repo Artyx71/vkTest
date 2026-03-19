@@ -18,25 +18,28 @@ function FavoritesContent() {
     useEffect(() => {
         let cancelled = false;
 
-        if (favorites.length === 0) {
-            setMovies([]);
-            setLoading(false);
-            return;
-        }
+        const fetchFavs = async () => {
+            if (favorites.length === 0) {
+                setMovies([]);
+                setLoading(false);
+                return;
+            }
 
-        setLoading(true);
+            setLoading(true);
 
-        Promise.all(
-            favorites.map((id) => getMovieById(id).catch(() => null))
-        )
-            .then((results) => {
+            try {
+                const results = await Promise.all(
+                    favorites.map((id) => getMovieById(id).catch(() => null))
+                );
                 if (!cancelled) {
                     setMovies(results.filter((m): m is MovieDetail => m !== null));
                 }
-            })
-            .finally(() => {
+            } finally {
                 if (!cancelled) setLoading(false);
-            });
+            }
+        };
+
+        fetchFavs();
 
         return () => {
             cancelled = true;

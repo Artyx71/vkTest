@@ -25,7 +25,7 @@ export function MovieCard({
     onToggleCompare,
 }: MovieCardProps) {
     const title = movie.name || movie.alternativeName || movie.enName || 'Без названия';
-    const genresText = movie.genres.map((g) => g.name).join(', ');
+    const genresText = (movie.genres || []).map((g) => g.name).join(', ');
 
     return (
         <div className={styles.card}>

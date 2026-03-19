@@ -18,12 +18,27 @@ export function MovieFilters() {
     const [localRatingFrom, setLocalRatingFrom] = useState<number>(ratingFrom);
     const [localRatingTo, setLocalRatingTo] = useState<number>(ratingTo);
 
-    useEffect(() => {
+    const [prevYearFrom, setPrevYearFrom] = useState(yearFrom);
+    const [prevYearTo, setPrevYearTo] = useState(yearTo);
+    const [prevRatingFrom, setPrevRatingFrom] = useState(ratingFrom);
+    const [prevRatingTo, setPrevRatingTo] = useState(ratingTo);
+
+    if (yearFrom !== prevYearFrom) {
+        setPrevYearFrom(yearFrom);
         setLocalYearFrom(yearFrom);
+    }
+    if (yearTo !== prevYearTo) {
+        setPrevYearTo(yearTo);
         setLocalYearTo(yearTo);
+    }
+    if (ratingFrom !== prevRatingFrom) {
+        setPrevRatingFrom(ratingFrom);
         setLocalRatingFrom(ratingFrom);
+    }
+    if (ratingTo !== prevRatingTo) {
+        setPrevRatingTo(ratingTo);
         setLocalRatingTo(ratingTo);
-    }, [yearFrom, yearTo, ratingFrom, ratingTo]);
+    }
 
     const debouncedYearFrom = useDebounce(localYearFrom, 500);
     const debouncedYearTo = useDebounce(localYearTo, 500);

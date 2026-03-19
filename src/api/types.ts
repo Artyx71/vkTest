@@ -56,6 +56,7 @@ export interface MovieResponse {
 }
 
 export interface MovieQueryParams {
+    [key: string]: string | number | boolean | (string | number)[] | undefined;
     page?: number;
     limit?: number;
     year?: string | number;
